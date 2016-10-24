@@ -8,7 +8,7 @@ for(new i=0; i<strlen(text); i++){
         strmid(temp,text,before,i);
         if(footnoted){
             format(string,sizeof(string),"%s%s*{FFFFFF}",string,temp),footnoted = false;
-        else
+        }else{
             format(string,sizeof(string),"%s%s{B51B84}*",string,temp),footnoted = true;
         }
         before = i+1;
