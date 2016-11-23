@@ -1,17 +1,25 @@
-new string[384],temp[256], bool:footnoted,before;
-new name[MAX_PLAYER_NAME];
-GetPlayerName(playerid, name, sizeof(name));
-
-format(string,sizeof(string),"%s: ",name);
-for(new i=0; i<strlen(text); i++){
-    if(text[i] == '*'){
-        strmid(temp,text,before,i);
-        if(footnoted){
-            format(string,sizeof(string),"%s%s*{FFFFFF}",string,temp),footnoted = false;
-        }else{
-            format(string,sizeof(string),"%s%s{B51B84}*",string,temp),footnoted = true;
+stock Stringfootnote(playerid, input[]){
+    new send[256], temp[64];
+    new bef;
+    new bool:flag;
+ 
+    new name[MAX_PLAYER_NAME];
+    GetPlayerName(playerid, name, sizeof(name));
+ 
+    format(send,sizeof(send),"%s : ",name);
+ 
+    for(new i=0; i<strlen(input); i++){
+        if(input[i] == '*'){
+ 
+            strmid(temp, input, bef, i);
+            
+            if(!foot) format(send,sizeof(send),"%s%s*{FFFFFF}",send, temp);
+            else format(send,sizeof(send),"%s%s{B51B84}*",send, temp);
+ 
+            flag = !flag;
+            bef = i+1;
         }
-        before = i+1;
     }
+ 
+    return strcat(send,input+(strlen(input)-bef));
 }
-strcat(string,strright(text,strlen(text)-before));
